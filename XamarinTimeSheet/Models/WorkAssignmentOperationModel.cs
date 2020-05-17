@@ -10,5 +10,6 @@ namespace XamarinTimeSheet.Models
         public string Operation { get; set; }
         public string AssignmentTitle { get; set; }   
         public string Name { get; set; }
+        public string Comment { get; set; }
     }
 }

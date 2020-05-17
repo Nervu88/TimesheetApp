@@ -27,6 +27,11 @@
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
+                <Label Text="Distance" TextColor="White"></Label>
+                <Label x:Name="distanceLabel" Text="" TextColor="White"></Label>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
 
                 <Button x:Name="StartBtn" Text="Aloita työ" Clicked="StartWork" Style="{StaticResource buttonStyle}">
                 </Button>
