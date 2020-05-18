@@ -118,13 +118,21 @@ namespace XamarinTimeSheet
                 var locationStart = await Geolocation.GetLocationAsync(request);
 
                 string osoite = await DisplayPromptAsync("Sijainti", "Anna työkohteen sijainti");
-                var locations = await Geocoding.GetLocationsAsync(osoite);
-                var locationEnd = locations?.FirstOrDefault();
+                
+                if (string.IsNullOrEmpty(osoite))
+                {
+                    distanceLabel.Text = "Osoite tieto puuttuu...";
+                }
+                else
+                {
+                    var locations = await Geocoding.GetLocationsAsync(osoite);
+                    var locationEnd = locations?.FirstOrDefault();
 
-                double kilometrit = Math.Round(Location.CalculateDistance(locationStart, locationEnd, DistanceUnits.Kilometers), 2);
-                distanceLabel.Text = kilometrit.ToString();
+                    double kilometrit = Math.Round(Location.CalculateDistance(locationStart, locationEnd, DistanceUnits.Kilometers), 2);
+                    distanceLabel.Text = kilometrit.ToString();
 
-                await DisplayAlert("Työmatkan pituus", kilometrit.ToString() + " km", "OK");
+                    await DisplayAlert("Työmatkan pituus", kilometrit.ToString() + " km", "OK");
+                }
 
                 // Luodaan PopUp ikkuna mahdolliselle kommentin jättämiselle. Kommentti string välitetään SelectedEmployy olioon
                 string result = await DisplayPromptAsync("Kommentti", "Kirjoita kommentti tai kuittaus");
