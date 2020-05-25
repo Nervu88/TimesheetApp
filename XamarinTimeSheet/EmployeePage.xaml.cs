@@ -25,6 +25,8 @@ namespace XamarinTimeSheet
 
         private async void LoadEmployees(object sender, EventArgs e)
         {
+            employeeList.ItemsSource = new String[] { "Ladataan..." };
+
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://timesheetrestapiriku.azurewebsites.net"); // yhteys RestApi appiin
             string json = await client.GetStringAsync("/api/Employees"); // polku employees sivulle

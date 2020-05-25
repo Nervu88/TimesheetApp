@@ -154,7 +154,7 @@ namespace XamarinTimeSheet
                         Operation = "Start",
                         AssignmentTitle = assignmentName,
                         Name = SelectedEmployee.Name, 
-                        Comment = SelectedEmployee.Comment
+                        Comment = SelectedEmployee.Comment,
                     };
 
                     HttpClient client = new HttpClient();
