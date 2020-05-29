@@ -7,16 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using XamarinTimeSheet.Models;
 using Xamarin.Essentials; // Tätä tarvitaan geolokaatiota varten
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace XamarinTimeSheet
 {
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WorkAssignmentPage : ContentPage
     {
-
+        
         public WorkAssignmentPage()
         {
             InitializeComponent();
@@ -117,10 +117,6 @@ namespace XamarinTimeSheet
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
                 var locationStart = await Geolocation.GetLocationAsync(request);
 
-                // Viedään tiedot SelectedEmployee tauluun lähetystä varten
-                SelectedEmployee.Latitude = locationStart.Latitude.ToString();
-                SelectedEmployee.Longtitude = locationStart.Longitude.ToString();
-
                 string osoite = await DisplayPromptAsync("Sijainti", "Anna työkohteen sijainti");
                 
                 if (string.IsNullOrEmpty(osoite))
@@ -131,6 +127,9 @@ namespace XamarinTimeSheet
                 {
                     var locations = await Geocoding.GetLocationsAsync(osoite);
                     var locationEnd = locations?.FirstOrDefault();
+                    // Viedään tiedot SelectedEmployee tauluun lähetystä varten
+                    SelectedEmployee.Latitude = locationEnd.Latitude.ToString();
+                    SelectedEmployee.Longtitude = locationEnd.Longitude.ToString();
 
                     double kilometrit = Math.Round(Location.CalculateDistance(locationStart, locationEnd, DistanceUnits.Kilometers), 2);
                     distanceLabel.Text = kilometrit.ToString();
