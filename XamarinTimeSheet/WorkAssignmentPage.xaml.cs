@@ -117,6 +117,10 @@ namespace XamarinTimeSheet
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
                 var locationStart = await Geolocation.GetLocationAsync(request);
 
+                // Viedään tiedot SelectedEmployee tauluun lähetystä varten
+                SelectedEmployee.Latitude = locationStart.Latitude.ToString();
+                SelectedEmployee.Longtitude = locationStart.Longitude.ToString();
+
                 string osoite = await DisplayPromptAsync("Sijainti", "Anna työkohteen sijainti");
                 
                 if (string.IsNullOrEmpty(osoite))
@@ -155,6 +159,8 @@ namespace XamarinTimeSheet
                         AssignmentTitle = assignmentName,
                         Name = SelectedEmployee.Name, 
                         Comment = SelectedEmployee.Comment,
+                        Latitude = SelectedEmployee.Latitude,
+                        Longtitude = SelectedEmployee.Longtitude
                     };
 
                     HttpClient client = new HttpClient();
